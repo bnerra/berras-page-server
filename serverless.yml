@@ -49,16 +49,17 @@ provider:
 
 # you can add packaging information here
 # package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-  # exclude:
-  #   - node_modules/puppeteer/.local-chromium/** # exclude puppeteer chrome if exists
-#    - exclude-me.js
-#    - exclude-me-dir/**
+#  exclude:
+#    - ./**
+#   include:
+#    - node_modules/**
+#    - headless-chrome/**
+#    - handler.js
 
 functions:
   api:
+    memorySize: 512
+    timeout: 30
     handler: handler.handler
     events:
       - http:

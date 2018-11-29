@@ -25,6 +25,7 @@ app.get('/html', (req, res) => {
 
 app.get('/pdf', (req, res) => {
   (async () => {
+
       const browser = await puppeteer.launch()
       const page = await browser.newPage()
       // await page.goto('https://i2wd7xn5sc.execute-api.us-east-1.amazonaws.com/dev/html')
@@ -32,7 +33,7 @@ app.get('/pdf', (req, res) => {
       const buffer = await page.pdf({format: 'A4', })
       res.type('application/pdf')
       res.send(buffer)
-      browser.close();
+      await browser.close();
   })()
 })
 
