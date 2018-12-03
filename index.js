@@ -1,5 +1,9 @@
 const app = require('./app');
 
-app.listen(8081, () => {
-  console.log('listening on port 8081')
+const server = app.listen(8081, () => {
+
+  let host = server.address().address
+  let port = server.address().port
+  
+  console.log('App listening at http://%s:%s', host, [port])
 });
