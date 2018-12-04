@@ -9,7 +9,7 @@ const s3Client = new AWS.S3({
  
 const downloadParams = {
   Bucket: env.Bucket, 
-  Key: '', // pass key
+  Key: 'NBerraResume.pdf', // pass key
 };
  
 const s3 = {};
