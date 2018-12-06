@@ -63,9 +63,19 @@ functions:
     handler: handler.handler
     events:
       - http:
-          path: "{proxy+}"
-          method: ANY
+          path: api/s3
+          method: GET
           cors: true
+  
+  # api:
+  #   memorySize: 512
+  #   timeout: 30
+  #   handler: handler.handler
+  #   events:
+  #     - http:
+  #         path: "{proxy+}"
+  #         method: ANY
+  #         cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
