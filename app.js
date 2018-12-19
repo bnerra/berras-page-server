@@ -8,6 +8,7 @@ let router = require('./routers/s3.router');
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 app.use('/', router);
 // app.use(function (req, res, next) {
 
