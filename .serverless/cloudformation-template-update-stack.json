@@ -92,7 +92,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/berras-page-server/dev/1545270799304-2018-12-20T01:53:19.304Z/berras-page-server.zip"
+          "S3Key": "serverless/berras-page-server/dev/1545347449261-2018-12-20T23:10:49.261Z/berras-page-server.zip"
         },
         "FunctionName": "berras-page-server-dev-api",
         "Handler": "handler.handler",
@@ -111,14 +111,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ApiLambdaVersionBSVNRS40IyH29bcBCbmvl1zdojCnTfB1bX9eD6nmokY": {
+    "ApiLambdaVersionhfpOcFC2feSOlWmO3Og8mNsKkxvYBafegLqYXUNo": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ApiLambdaFunction"
         },
-        "CodeSha256": "V/ZHsK27yjF+ouYlSk5Pcyxwl2TStKNlZYhCQfqKWuM="
+        "CodeSha256": "sdJ/iXccbxRjaHjVSBOUh1cPm+FhMXPGV4ogkHylBW4="
       }
     },
     "ApiGatewayRestApi": {
@@ -453,7 +453,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1545270799389": {
+    "ApiGatewayDeployment1545347449357": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -527,7 +527,7 @@
     "ApiLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ApiLambdaVersionBSVNRS40IyH29bcBCbmvl1zdojCnTfB1bX9eD6nmokY"
+        "Ref": "ApiLambdaVersionhfpOcFC2feSOlWmO3Og8mNsKkxvYBafegLqYXUNo"
       }
     },
     "ServiceEndpoint": {
