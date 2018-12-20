@@ -3,8 +3,6 @@ const AWS = require('aws-sdk');
 const sgMail = require('@sendgrid/mail')
 require('dotenv').config();
 
-const emailExists = require('email-existence')
-
 const s3 = require('../config/s3.config')
 
 exports.doDownload = (req, res) => {
@@ -31,34 +29,48 @@ s3Client.getObject({
 }
 
 exports.sendEmail = (req, res) => {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: 'bnerra.contact@gmail.com',
-    from: req.body.emailAddress,
-    subject: 'Contact request from ' + req.body.senderName + ' at bnerra.com',
-    text: req.body.emailMessage
-  }
 
-  res.setHeader('Content-Type', 'multipart/form-data');
-  res.setHeader('Accept', 'multipart/form-data');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', '*');
+  if (req.body.email !== '') {
+    res.setHeader('Content-Type', 'multipart/form-data');
+    res.setHeader('Accept', 'multipart/form-data');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', '*');
 
-  // TODO: Error handling if correct data is not sent
+    res.status(200).send('Thank you.')
+  } else {
 
-  sgMail.send(msg, function(err, data) {
-    if (err) {
-      console.log(err, err.stack);
-      res.status(400).send('Bad Request' + err)
-    } else {
-      res.status(200).send(data.Body);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+      to: 'bnerra.contact@gmail.com',
+      from: req.body.emailAddress,
+      subject: 'Contact request from ' + req.body.senderName + ' at bnerra.com',
+      text: req.body.emailMessage
     }
-  });
+
+    res.setHeader('Content-Type', 'multipart/form-data');
+    res.setHeader('Accept', 'multipart/form-data');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
+    res.setHeader('Access-Control-Allow-Headers', '*');
+
+    // TODO: Error handling if correct data is not sent
+
+    sgMail.send(msg, function(err, data) {
+      if (err) {
+        console.log(err, err.stack);
+        res.status(400).send('Bad Request' + err)
+      } else {
+        res.status(200).send(data.Body);
+      }
+    });
+  }
 }
 
 exports.getData = (req, res) => {
   console.log(req.body);
+
+  
 
   // res.setHeader('Content-Type', 'multipart/form-data');
   // res.setHeader('Accept', 'multipart/form-data');
@@ -66,9 +78,9 @@ exports.getData = (req, res) => {
   // res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
   // res.setHeader('Access-Control-Allow-Headers', '*');
 
-  emailExists.check(req.body.email, function(error, response){
-    console.log('res: '+response);
-});
+//   emailExists.check(req.body.email, function(error, response){
+//     console.log('res: '+response);
+// });
 
-  res.status(200).send(req.body);
+  // res.status(200).send(req.body);
 }
