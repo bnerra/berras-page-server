@@ -37,9 +37,18 @@ exports.sendEmail = (req, res) => {
     text: req.body.emailMessage
   }
 
+  res.setHeader('Content-Type', 'multipart/form-data');
+  res.setHeader('Accept', 'multipart/form-data');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', '*');
+
+  // TODO: Error handling if correct data is not sent
+
   sgMail.send(msg, function(err, data) {
     if (err) {
       console.log(err, err.stack);
+      res.status(400).send('Bad Request' + err)
     } else {
       res.status(200).send(data.Body);
     }
@@ -47,7 +56,13 @@ exports.sendEmail = (req, res) => {
 }
 
 exports.getData = (req, res) => {
-  console.log(req.data);
+  console.log(req.body);
 
-  res.status(200).send({data: req.data});
+  res.setHeader('Content-Type', 'multipart/form-data');
+  res.setHeader('Accept', 'multipart/form-data');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', '*');
+
+  res.status(200).send(req.body);
 }
