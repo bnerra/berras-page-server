@@ -3,6 +3,8 @@ const AWS = require('aws-sdk');
 const sgMail = require('@sendgrid/mail')
 require('dotenv').config();
 
+const emailExists = require('email-existence')
+
 const s3 = require('../config/s3.config')
 
 exports.doDownload = (req, res) => {
@@ -31,7 +33,7 @@ s3Client.getObject({
 exports.sendEmail = (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
-    to: 'nberra90@gmail.com',
+    to: 'bnerra.contact@gmail.com',
     from: req.body.emailAddress,
     subject: 'Contact request from ' + req.body.senderName + ' at bnerra.com',
     text: req.body.emailMessage
@@ -58,11 +60,15 @@ exports.sendEmail = (req, res) => {
 exports.getData = (req, res) => {
   console.log(req.body);
 
-  res.setHeader('Content-Type', 'multipart/form-data');
-  res.setHeader('Accept', 'multipart/form-data');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', '*');
+  // res.setHeader('Content-Type', 'multipart/form-data');
+  // res.setHeader('Accept', 'multipart/form-data');
+  // res.setHeader('Access-Control-Allow-Origin', '*');
+  // res.setHeader('Access-Control-Allow-Methods', 'POST'); // If needed
+  // res.setHeader('Access-Control-Allow-Headers', '*');
+
+  emailExists.check(req.body.email, function(error, response){
+    console.log('res: '+response);
+});
 
   res.status(200).send(req.body);
 }
